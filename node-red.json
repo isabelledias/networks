@@ -1,0 +1,334 @@
+[
+    {
+        "id": "c681e531d2028180",
+        "type": "tab",
+        "label": "Trab2",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "c954e606745ae2f2",
+        "type": "comment",
+        "z": "c681e531d2028180",
+        "name": "Read binary input at address 0",
+        "info": "",
+        "x": 230,
+        "y": 300,
+        "wires": []
+    },
+    {
+        "id": "c8da5157b0d8f2a1",
+        "type": "modbus-read",
+        "z": "c681e531d2028180",
+        "name": "F1 0 [1]",
+        "topic": "",
+        "showStatusActivities": false,
+        "logIOActivities": false,
+        "showErrors": false,
+        "unitid": "1",
+        "dataType": "Coil",
+        "adr": "0",
+        "quantity": "1",
+        "rate": "1",
+        "rateUnit": "s",
+        "delayOnStart": false,
+        "startDelayTime": "",
+        "server": "abd5cdac1bb65506",
+        "useIOFile": false,
+        "ioFile": "",
+        "useIOForPayload": false,
+        "emptyMsgOnFail": false,
+        "x": 170,
+        "y": 340,
+        "wires": [
+            [
+                "da5454826b164d60"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "da5454826b164d60",
+        "type": "modbus-response",
+        "z": "c681e531d2028180",
+        "name": "",
+        "registerShowMax": 20,
+        "x": 370,
+        "y": 340,
+        "wires": []
+    },
+    {
+        "id": "2b29ae321b63f937",
+        "type": "modbus-flex-write",
+        "z": "c681e531d2028180",
+        "name": "Write Port 10502",
+        "showStatusActivities": false,
+        "showErrors": false,
+        "server": "abd5cdac1bb65506",
+        "emptyMsgOnFail": false,
+        "keepMsgProperties": false,
+        "x": 830,
+        "y": 580,
+        "wires": [
+            [],
+            []
+        ]
+    },
+    {
+        "id": "8ea03472a979ddd8",
+        "type": "function",
+        "z": "c681e531d2028180",
+        "name": "FC16 1 [2]",
+        "func": "msg.payload = {\n    value: msg.payload,\n    'fc': 16, \n    'unitid': 1, \n    'address': 1 , \n    'quantity': 2\n};\nreturn msg;\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 630,
+        "y": 580,
+        "wires": [
+            [
+                "2b29ae321b63f937",
+                "7cd2e7c593f565d1"
+            ]
+        ]
+    },
+    {
+        "id": "1318912458aa1b2a",
+        "type": "inject",
+        "z": "c681e531d2028180",
+        "name": "int input",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "1",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "num",
+        "x": 180,
+        "y": 580,
+        "wires": [
+            [
+                "9b1c2b0551442b5e"
+            ]
+        ]
+    },
+    {
+        "id": "7d0345f78de3cb4d",
+        "type": "join",
+        "z": "c681e531d2028180",
+        "name": "",
+        "mode": "custom",
+        "build": "array",
+        "property": "payload",
+        "propertyType": "msg",
+        "key": "topic",
+        "joiner": "\\n",
+        "joinerType": "str",
+        "accumulate": false,
+        "timeout": "",
+        "count": "2",
+        "reduceRight": false,
+        "reduceExp": "",
+        "reduceInit": "",
+        "reduceInitType": "",
+        "reduceFixup": "",
+        "x": 470,
+        "y": 580,
+        "wires": [
+            [
+                "8ea03472a979ddd8"
+            ]
+        ]
+    },
+    {
+        "id": "9ab2ce5fb689e9cb",
+        "type": "comment",
+        "z": "c681e531d2028180",
+        "name": "Write vector of length 2 at address 0",
+        "info": "",
+        "x": 240,
+        "y": 540,
+        "wires": []
+    },
+    {
+        "id": "9b1c2b0551442b5e",
+        "type": "random",
+        "z": "c681e531d2028180",
+        "name": "",
+        "low": "0",
+        "high": "100",
+        "inte": "true",
+        "property": "payload",
+        "x": 320,
+        "y": 580,
+        "wires": [
+            [
+                "7d0345f78de3cb4d"
+            ]
+        ]
+    },
+    {
+        "id": "a78f6be4c904977d",
+        "type": "comment",
+        "z": "c681e531d2028180",
+        "name": "LIGA/DESLIGA MAQUINA REPRESENTADA POR LED",
+        "info": "",
+        "x": 300,
+        "y": 240,
+        "wires": []
+    },
+    {
+        "id": "7b3e456078ff20b7",
+        "type": "comment",
+        "z": "c681e531d2028180",
+        "name": "ENVIA VALORES 0-100 REPRESENTAM SENSORES",
+        "info": "",
+        "x": 300,
+        "y": 480,
+        "wires": []
+    },
+    {
+        "id": "7cd2e7c593f565d1",
+        "type": "modbus-response",
+        "z": "c681e531d2028180",
+        "name": "",
+        "registerShowMax": 20,
+        "x": 850,
+        "y": 680,
+        "wires": []
+    },
+    {
+        "id": "147a3279876eee14",
+        "type": "modbus-server",
+        "z": "c681e531d2028180",
+        "name": "",
+        "logEnabled": false,
+        "hostname": "0.0.0.0",
+        "serverPort": "10502",
+        "responseDelay": 100,
+        "delayUnit": "ms",
+        "coilsBufferSize": 10000,
+        "holdingBufferSize": 10000,
+        "inputBufferSize": 10000,
+        "discreteBufferSize": 10000,
+        "showErrors": false,
+        "x": 360,
+        "y": 120,
+        "wires": [
+            [
+                "458e8f90f20ac927",
+                "458e8f90f20ac927"
+            ],
+            [
+                "458e8f90f20ac927",
+                "458e8f90f20ac927"
+            ],
+            [
+                "458e8f90f20ac927",
+                "458e8f90f20ac927"
+            ],
+            [
+                "458e8f90f20ac927",
+                "458e8f90f20ac927"
+            ],
+            [
+                "458e8f90f20ac927",
+                "458e8f90f20ac927"
+            ]
+        ]
+    },
+    {
+        "id": "458e8f90f20ac927",
+        "type": "debug",
+        "z": "c681e531d2028180",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 590,
+        "y": 120,
+        "wires": []
+    },
+    {
+        "id": "b1b4b6470621a1a0",
+        "type": "inject",
+        "z": "c681e531d2028180",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "str",
+        "x": 170,
+        "y": 100,
+        "wires": [
+            [
+                "147a3279876eee14",
+                "147a3279876eee14"
+            ]
+        ]
+    },
+    {
+        "id": "a0ec715549a5787e",
+        "type": "comment",
+        "z": "c681e531d2028180",
+        "name": "Modbus TCP/IP ",
+        "info": "",
+        "x": 180,
+        "y": 60,
+        "wires": []
+    },
+    {
+        "id": "abd5cdac1bb65506",
+        "type": "modbus-client",
+        "name": "ScadaBR",
+        "clienttype": "tcp",
+        "bufferCommands": true,
+        "stateLogEnabled": false,
+        "queueLogEnabled": false,
+        "tcpHost": "0.0.0.0",
+        "tcpPort": "10502",
+        "tcpType": "DEFAULT",
+        "serialPort": "/dev/ttyUSB",
+        "serialType": "RTU-BUFFERD",
+        "serialBaudrate": "9600",
+        "serialDatabits": "8",
+        "serialStopbits": "1",
+        "serialParity": "none",
+        "serialConnectionDelay": "100",
+        "serialAsciiResponseStartDelimiter": "0x3A",
+        "unit_id": 1,
+        "commandDelay": 1,
+        "clientTimeout": 1000,
+        "reconnectOnTimeout": true,
+        "reconnectTimeout": 2000,
+        "parallelUnitIdsAllowed": true
+    }
+]
