@@ -1,5 +1,5 @@
 # networks
-## Network assingment for Supervisory Control and PLC simulation
+## Network assignment for Supervisory Control and PLC simulation
 Frameworks used:
   - AWS
   - Node-RED
